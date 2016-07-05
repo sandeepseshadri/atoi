@@ -1,0 +1,11 @@
+{
+    "require": {
+        "phpunit/phpunit": "^5.4"
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "": "tests/",
+            "App\\": "src/"
+        }
+    }
+}
