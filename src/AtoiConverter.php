@@ -6,6 +6,18 @@ use InvalidArgumentException;
 
 class AtoiConverter
 {
+    protected static $asciiMap = [
+        '0' => 0,
+        '1' => 1,
+        '2' => 2,
+        '3' => 3,
+        '4' => 4,
+        '5' => 5,
+        '6' => 6,
+        '7' => 7,
+        '8' => 8,
+        '9' => 9
+    ];
     /**
      * Converts a given Ascii string representing a number to integer
      *
@@ -14,10 +26,11 @@ class AtoiConverter
      */
     public function convert($input)
     {
-        $this->isValid($input);
+        $this->checkValid($input);
         $convertedValue = 0;
-        for ($i = 0; $i< strlen($input); $i++) {
-            $convertedValue = $this->multiplyBy10($convertedValue) + substr($input, $i, 1);
+        for ($i = 0; $i < strlen($input); $i++) {
+            $currentElement = substr($input, $i, 1);
+            $convertedValue = $this->multiplyBy10($convertedValue) + self::$asciiMap[$currentElement];
         }
         return $convertedValue;
     }
@@ -26,10 +39,10 @@ class AtoiConverter
      * Checks to make sure the input is valid number
      * @param $input
      */
-    protected function isValid($input)
+    protected function checkValid($input)
     {
         if (is_null($input) || preg_match('/[^0-9]/', $input)) {
-            throw new InvalidArgumentException();
+            throw new InvalidArgumentException('Given input is not a valid number');
         }
     }
 
